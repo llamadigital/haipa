@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'haipa/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'Haipa'
+  spec.name          = 'haipa'
   spec.version       = Haipa::VERSION
   spec.authors       = ['Jon Doveston']
   spec.email         = ['jon@doveston.me.uk']

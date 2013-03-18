@@ -1,7 +1,8 @@
 require_relative 'spec_helper'
 
 describe Haipa do
-  let(:description) { {message:'hello'} }
+  let(:description) { {_links:{self:{href:'http://example.com/'}}} }
+
   let(:stubs) do
     Faraday::Adapter::Test::Stubs.new do |stub|
       stub.get('/') { [200, {}, description.to_json] }
@@ -9,5 +10,5 @@ describe Haipa do
   end
   let(:client) { Faraday.new { |builder| builder.adapter :test, stubs } }
 
-  # specify { p client.get('/') }
+  specify { p client.get('/') }
 end
