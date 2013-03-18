@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['jon@doveston.me.uk']
   spec.description   = %q{HAL hypermedia client}
   spec.summary       = %q{HAL hypermedia client}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/hatoishi/haipa'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
