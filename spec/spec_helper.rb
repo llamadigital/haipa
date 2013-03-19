@@ -1,5 +1,6 @@
 require 'json'
 require 'faraday'
+require 'haipa'
 
 RSpec.configure do |config|
   config.filter_run :wip => true
