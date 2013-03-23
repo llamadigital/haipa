@@ -1,17 +1,28 @@
-require 'forwardable'
-
 module Haipa
   class Api
     extend Forwardable
 
-    attr_reader :conn, :resource
+    attr_reader :conn, :resource, :uri
     def_delegators :@conn, :get
+    def_delegators :@resource, :links, :embedded, :href
+    alias :connection :conn
 
     def initialize(params={})
-      @conn = Faraday.new(params) do |builder|
-        yield builder if block_given?
+      @uri = URI(params[:url].to_s).path
+      @conn = Faraday.new(defaults.merge(params)) do |conn|
+        yield conn if block_given?
       end
-      @resource = Resource.new(self,'/')
+      @resource = Resource.new(self,'')
+    end
+
+    def defaults
+      {
+        :headers =>
+        {
+          :accept => 'application/hal+json',
+          :user_agent => 'Haipa'
+        }
+      }
     end
 
     def clear
@@ -20,18 +31,6 @@ module Haipa
 
     def description
       resource.get
-    end
-
-    def links
-      resource.links
-    end
-
-    def link_self
-      resource.link_self
-    end
-
-    def link_self_href
-      resource.link_self_href
     end
   end
 end

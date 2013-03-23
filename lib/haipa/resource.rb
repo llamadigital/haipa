@@ -13,19 +13,19 @@ module Haipa
     end
 
     def get
-      @get ||= JSON.load(api.conn.get(uri).body)
+      @get ||= ::Hashie::Mash.new(JSON.parse(api.get(uri).body))
+    end
+
+    def embedded
+      get.fetch('_embedded', {})
     end
 
     def links
-      get.fetch('_links',{})
+      Links.new(self, get.fetch('_links', {}))
     end
 
-    def link_self
-      links.fetch('self', nil)
-    end
-
-    def link_self_href
-      (link_self || {}).fetch('href', nil)
+    def href
+      (links.self || {}).fetch('href', nil)
     end
   end
 end

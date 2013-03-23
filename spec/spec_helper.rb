@@ -1,5 +1,7 @@
 require 'json'
 require 'faraday'
+require 'awesome_print'
+require 'hashie'
 require 'haipa'
 
 RSpec.configure do |config|
