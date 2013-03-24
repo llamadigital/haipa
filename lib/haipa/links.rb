@@ -3,7 +3,7 @@ module Haipa
     extend Forwardable
 
     attr_reader :links, :parent
-    def_delegators :@links, :empty?
+    def_delegators :@links, :empty?, :has_key?
 
     def initialize(parent, links)
       @links = links
