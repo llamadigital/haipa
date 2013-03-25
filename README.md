@@ -18,7 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Haipa.api creates a new Haipa::Api object. The initializer's parameters and block
+are passed straight through to Faraday's connection initializer so you have full
+access to all of Faraday's settings, including adapter and middlewares.
+
+At the moment the only additions Haipa makes to the Faraday default is to add
+the accepts header application/hal+json and the user agent header Haipa. This
+defaults are deep merged with the settings passed to the initializer so they can
+be overridden.
+
+  api = Haipa.api(url:'http://localhost:3000/api/v1')
 
 ## Contributing
 
