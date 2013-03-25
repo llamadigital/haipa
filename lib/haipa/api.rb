@@ -3,7 +3,7 @@ module Haipa
     extend Forwardable
 
     attr_reader :conn, :resource, :uri
-    def_delegators :@conn, :get
+    def_delegators :@conn, :get, :post, :put, :delete
     def_delegators :@resource, :links, :embedded, :href, :resources
     alias :connection :conn
 
