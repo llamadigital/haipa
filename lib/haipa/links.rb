@@ -2,17 +2,17 @@ module Haipa
   class Links
     extend Forwardable
 
-    attr_reader :links, :parent
+    attr_reader :links, :resource
     def_delegators :@links, :empty?, :has_key?
 
-    def initialize(parent, links)
+    def initialize(resource, links)
       @links = links
-      @parent = parent
+      @resource = resource
     end
 
     def method_missing(name, *args, &block)
       if links.has_key?(name)
-        Resource.new(parent.api, links[name][:href])
+        Resource.new(resource.api, links[name]['href'])
       else
         super
       end

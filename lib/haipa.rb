@@ -7,6 +7,7 @@ require 'haipa/version'
 require 'haipa/api'
 require 'haipa/resource'
 require 'haipa/links'
+require 'haipa/embedded'
 
 module Haipa
   def self.api(params={})
