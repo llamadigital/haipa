@@ -16,7 +16,13 @@ module Haipa
 
     def method_missing(name, *args, &block)
       if @data.has_key?(name)
-        Resource.new(resource.api, @data[name]['href'])
+        href = @data[name]['href']
+        if @data[name]['template'] == true
+          template = Addressable::Template.new(href)
+          options = args.last.is_a?(::Hash) ? args.pop : {}
+          href = template.expand(options).to_s
+        end
+        Resource.new(resource.api, href)
       else
         super
       end

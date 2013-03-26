@@ -2,6 +2,7 @@ require 'uri'
 require 'forwardable'
 require 'hashie'
 require 'faraday'
+require 'addressable/template'
 
 require 'haipa/version'
 require 'haipa/api'

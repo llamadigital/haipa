@@ -14,6 +14,11 @@ describe Haipa::Resource do
     specify { subject.links.self.should be }
   end
 
+  it 'works' do
+    # template = Addressable::Template.new('/api{?q1,q2}')
+    # ap template.expand({'q1' => 'hello', 'q2' => 'bye'}).to_s
+  end
+
   context "with embedded resources" do
     let(:body) do
       {

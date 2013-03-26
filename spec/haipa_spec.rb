@@ -10,5 +10,5 @@ describe Haipa do
   end
   subject { Haipa.api { |builder| builder.adapter :test, stubs } }
 
-  its(:description) { should eq(description) }
+  specify { subject.description.to_hash.should eq(description) }
 end
