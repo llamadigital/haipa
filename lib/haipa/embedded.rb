@@ -2,29 +2,33 @@ module Haipa
   class Embedded
     extend Forwardable
 
-    attr_reader :embedded, :resource
-    def_delegators :@embedded, :empty?, :has_key?
+    attr_reader :resource
+    def_delegators :@data, :empty?, :has_key?, :fetch
 
-    def initialize(resource, embedded)
-      @embedded = embedded
+    def initialize(resource, data)
+      @data = data
       @resource = resource
     end
 
     def method_missing(name, *args, &block)
-      if embedded.has_key?(name)
-        from_array(embedded[name])
+      if @data.has_key?(name)
+        from_array(@data[name])
       else
         super
       end
     end
 
+    def to_hash
+      @data
+    end
+
     private
 
-    def from_array(data)
-      if data.kind_of?(Array)
-        data.map{ |e| from_hash(e) }
+    def from_array(array_or_hash)
+      if array_or_hash.kind_of?(Array)
+        array_or_hash.map{ |e| from_hash(e) }
       else
-        from_hash(data)
+        from_hash(array_or_hash)
       end
     end
 

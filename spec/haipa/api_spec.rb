@@ -8,10 +8,10 @@ describe Haipa::Api do
       stub.get('/') { [200, {}, description.to_json] }
     end
   end
-  subject { Haipa.api { |builder| builder.adapter :test, stubs } }
+  subject { Haipa.api { |conn| conn.adapter :test, stubs } }
 
-  its(:description) { should eq(description) }
-  its(:links) { should eq(description['_links']) }
-  its(:embedded) { should eq(description['_embedded']) }
-  its(:href) { should eq(description['_links']['self']['href']) }
+  specify { subject.description.to_hash.should == description }
+  specify { subject.links.to_hash.should == description['_links'] }
+  specify { subject.embedded.to_hash.should == description['_embedded'] }
+  specify { subject.href.should == description['_links']['self']['href'] }
 end
