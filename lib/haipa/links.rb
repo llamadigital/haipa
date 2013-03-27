@@ -10,6 +10,10 @@ module Haipa
       @resource = resource
     end
 
+    def to_hash
+      @data
+    end
+
     def method_missing(name, *args, &block)
       if @data.has_key?(name)
         href = @data[name]['href']

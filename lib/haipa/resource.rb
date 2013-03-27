@@ -2,20 +2,20 @@ module Haipa
   class Resource
     attr_reader :api, :uri
 
-    def initialize(api, uri, get=nil)
+    def initialize(api, uri, data=nil)
       @api = api
       @uri = uri
-      @get = get
+      @data = data
     end
 
     def clear
-      @get = nil
+      @data = nil
       self
     end
 
     def get
       return {} unless uri
-      @get ||= ::Hashie::Mash.new(JSON.parse(api.get(uri).body))
+      @data ||= ::Hashie::Mash.new(JSON.parse(api.get(uri).body))
     end
 
     def embedded
@@ -28,7 +28,7 @@ module Haipa
     end
 
     def href
-      (links.self || {}).fetch('href', nil)
+      (links.to_hash.self || {}).fetch('href', nil)
     end
   end
 end
