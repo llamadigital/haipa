@@ -60,22 +60,19 @@ and a thing index resource
 Then Haipa can consume this API with
 
     api = Haipa.api(url:'http://localhost:3000/api/v1')
+    api.description # the root as a hash
     api.resource # the root as a Haipa::Resource
-    api.description # alias of api.resource
     api.links # the root links as a Haipa::Links
     api.href # the uri of the root
     api.embedded # the embedded resource array Haipa::Embedded
     api.resources # alias of api.embedded
-    api.to_hash # the api root as a hash
 
-    links = api.links
+    link = api.links
     links.things # the things Haipa::Resource
-    links.to_hash # the links as a hash
 
-    things = links.things # things Haipa::Resource
+    things = links.things
     things.links # the things index Haipa::Links
     things.embedded # the things index Haipa::Embedded
-    things.to_hash # the things resource as a hash
 
     embedded = things.embedded
     embedded.things # array of Haipa::Resource
@@ -83,7 +80,8 @@ Then Haipa can consume this API with
     embedded.things.first.name # the first embedded thing Haipa::Resource name
     embedded.things[1] # the second embedded thing Haipa::Resource
     embedded.things.first.clear.other_attribute
-    embedded.to_hash # the embedded resources as a hash
+
+
 
 ## Contributing
 

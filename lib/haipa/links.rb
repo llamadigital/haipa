@@ -2,16 +2,12 @@ module Haipa
   class Links
     extend Forwardable
 
-    attr_reader :resource
+    attr_reader :data, :resource
     def_delegators :@data, :empty?, :has_key?
 
     def initialize(resource, data)
       @data = data
       @resource = resource
-    end
-
-    def to_hash
-      @data
     end
 
     def method_missing(name, *args, &block)
