@@ -1,6 +1,10 @@
 module Haipa
+  class EmptyResponseError < StandardError; end
+  class FailureResponseError < StandardError; end
+
   class Resource
-    attr_reader :api, :uri
+    attr_reader :api, :uri, :data
+    alias :to_hash :data
 
     def initialize(api, uri, data=nil)
       @api = api
@@ -15,7 +19,10 @@ module Haipa
 
     def get
       return {} unless uri
-      @data ||= ::Hashie::Mash.new(JSON.parse(api.get(uri).body))
+      response = api.get(uri)
+      raise FailureResponseError unless response.success?
+      raise EmptyResponseError if response.body.blank?
+      @data ||= ::Hashie::Mash.new(JSON.parse(response.body))
     end
 
     def embedded

@@ -12,7 +12,7 @@ module Haipa
       @conn = Faraday.new(defaults.deep_merge(params)) do |conn|
         yield conn if block_given?
       end
-      @resource = Resource.new(self,'')
+      @resource = Resource.new(self, @uri)
     end
 
     def defaults

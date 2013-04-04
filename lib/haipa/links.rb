@@ -3,15 +3,12 @@ module Haipa
     extend Forwardable
 
     attr_reader :data, :resource
+    alias :to_hash :data
     def_delegators :@data, :empty?, :has_key?
 
     def initialize(resource, data)
       @data = data
       @resource = resource
-    end
-
-    def to_hash
-      @data
     end
 
     def method_missing(name, *args, &block)

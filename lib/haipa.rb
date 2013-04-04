@@ -11,7 +11,7 @@ require 'haipa/links'
 require 'haipa/embedded'
 
 module Haipa
-  def self.api(params={})
-    Api.new(params, &Proc.new)
+  def self.api(params={}, &block)
+    Api.new(params, &block)
   end
 end
