@@ -25,6 +25,24 @@ module Haipa
       @data ||= ::Hashie::Mash.new(JSON.parse(response.body))
     end
 
+    def delete
+      api.delete(uri)
+    end
+
+    def post(body)
+      api.post do |conn|
+        conn.url uri
+        conn.body = body
+      end
+    end
+
+    def put(body)
+      api.put do |conn|
+        conn.url uri
+        conn.body = body
+      end
+    end
+
     def embedded
       Embedded.new(self, get.fetch('_embedded', {}))
     end
