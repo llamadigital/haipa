@@ -20,7 +20,7 @@ describe Haipa::Resource do
         '_embedded' => { },
         '_links' => {
           'self' => {'href' => uri},
-          'find' => {'href' => uri+'/things/{id}{?filter1,filter2}', 'template' => true}
+          'find' => {'href' => uri+'/things/{id}{?filter1,filter2}', 'templated' => true}
         }
       }
     end
