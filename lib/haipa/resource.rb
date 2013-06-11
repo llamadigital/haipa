@@ -21,7 +21,7 @@ module Haipa
       return {} unless uri
       response = api.get(uri)
       raise FailureResponseError unless response.success?
-      raise EmptyResponseError if response.body.blank?
+      raise EmptyResponseError if !response.body || response.body.empty?
       @data ||= ::Hashie::Mash.new(JSON.parse(response.body))
     end
 

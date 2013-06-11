@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Haipa::Resource do
   let(:uri) { '/api/v1' }
-  let(:response) { double('response', body:body.to_json) }
+  let(:response) { double('response', body:body.to_json, success?:true) }
   let(:api) { double('api', get:response) }
   subject { Haipa::Resource.new(api, uri) }
 
@@ -14,9 +14,20 @@ describe Haipa::Resource do
     specify { subject.links.self.should be }
   end
 
-  it 'works' do
-    # template = Addressable::Template.new('/api{?q1,q2}')
-    # ap template.expand({'q1' => 'hello', 'q2' => 'bye'}).to_s
+  context "with a templated find" do
+    let(:body) do
+      {
+        '_embedded' => { },
+        '_links' => {
+          'self' => {'href' => uri},
+          'find' => {'href' => uri+'/things/{id}{?filter1,filter2}', 'template' => true}
+        }
+      }
+    end
+    it 'resolves the template' do
+      subject.links.find(id:1, filter1:'hello', filter2:'world').uri.should be ==
+        uri+'/things/1?filter1=hello&filter2=world'
+    end
   end
 
   context "with embedded resources" do
