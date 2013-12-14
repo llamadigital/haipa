@@ -1,8 +1,8 @@
 require 'uri'
 require 'forwardable'
-require 'hashie'
 require 'faraday'
 require 'addressable/template'
+require 'deep_merge'
 
 require 'haipa/version'
 require 'haipa/api'

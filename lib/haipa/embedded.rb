@@ -12,6 +12,7 @@ module Haipa
     end
 
     def method_missing(name, *args, &block)
+      name = name.to_s
       if data.has_key?(name)
         from_array(data[name])
       else

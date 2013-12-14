@@ -11,7 +11,7 @@ describe Haipa::Resource do
     its(:embedded) { should be_empty }
     its(:resources) { should be_empty }
     its(:links) { should_not be_empty }
-    specify { subject.links.self.should be }
+    specify { expect(subject.links.self).to be }
   end
 
   context "with a templated find" do
@@ -25,8 +25,8 @@ describe Haipa::Resource do
       }
     end
     it 'resolves the template' do
-      subject.links.find(id:1, filter1:'hello', filter2:'world').uri.should be ==
-        uri+'/things/1?filter1=hello&filter2=world'
+      expect(subject.links.find(id:1, filter1:'hello', filter2:'world').uri).
+        to eq(uri+'/things/1?filter1=hello&filter2=world')
     end
   end
 
@@ -46,10 +46,10 @@ describe Haipa::Resource do
         '_links' => {'self' => {'href' => uri}}
       }
     end
-    specify { subject.embedded.should_not be_empty }
-    specify { subject.resources.thing.should be_a Haipa::Resource }
-    specify { subject.resources.things.first.should be_a Haipa::Resource }
-    specify { subject.resources.thing.get.name.should be == 'thing' }
-    specify { subject.resources.things.first.get.name.should be == 'thing' }
+    specify { expect(subject.embedded).not_to be_empty }
+    specify { expect(subject.resources.thing).to be_a Haipa::Resource }
+    specify { expect(subject.resources.things.first).to be_a Haipa::Resource }
+    specify { expect(subject.resources.thing.get.fetch('name')).to eq('thing') }
+    specify { expect(subject.resources.things.first.get.fetch('name')).to eq('thing') }
   end
 end

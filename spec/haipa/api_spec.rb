@@ -10,8 +10,8 @@ describe Haipa::Api do
   end
   subject { Haipa.api { |builder| builder.adapter :test, stubs } }
 
-  specify { subject.description.should == description }
-  specify { subject.links.to_hash.should == description['_links'] }
-  specify { subject.embedded.to_hash.should == description['_embedded'] }
-  specify { subject.href.should == description['_links']['self']['href'] }
+  specify { expect(subject.description).to eq(description) }
+  specify { expect(subject.links.to_hash).to eq(description['_links']) }
+  specify { expect(subject.embedded.to_hash).to eq(description['_embedded']) }
+  specify { expect(subject.href).to eq(description['_links']['self']['href']) }
 end

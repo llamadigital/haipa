@@ -26,7 +26,7 @@ module Haipa
           :accept => 'application/hal+json',
           :user_agent => 'Haipa'
         }
-      }.extend(Hashie::Extensions::DeepMerge)
+      }
     end
 
     def clear

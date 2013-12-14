@@ -23,7 +23,7 @@ module Haipa
       response = api.get(uri)
       raise FailureResponseError unless response.success?
       raise EmptyResponseError if !response.body || response.body.empty?
-      @data = ::Hashie::Mash.new(JSON.parse(response.body))
+      @data = JSON.parse(response.body)
     end
 
     def delete
@@ -54,7 +54,7 @@ module Haipa
     end
 
     def href
-      (links.to_hash.self || {}).fetch('href', nil)
+      links.to_hash.fetch('self', {}).fetch('href', nil)
     end
   end
 end
