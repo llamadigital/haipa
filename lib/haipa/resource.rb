@@ -18,11 +18,12 @@ module Haipa
     end
 
     def get
+      return @data if @data
       return {} unless uri
       response = api.get(uri)
       raise FailureResponseError unless response.success?
       raise EmptyResponseError if !response.body || response.body.empty?
-      @data ||= ::Hashie::Mash.new(JSON.parse(response.body))
+      @data = ::Hashie::Mash.new(JSON.parse(response.body))
     end
 
     def delete

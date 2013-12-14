@@ -10,7 +10,11 @@ module Haipa
     def initialize(params={})
       @uri = URI(params[:url].to_s).path
       @conn = Faraday.new(defaults.deep_merge(params)) do |conn|
-        yield conn if block_given?
+        if block_given?
+          yield conn
+        else
+          conn.adapter Faraday.default_adapter
+        end
       end
       @resource = Resource.new(self, @uri)
     end
