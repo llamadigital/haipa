@@ -21,10 +21,10 @@ module Haipa
 
     def defaults
       {
-        :headers =>
+        headers: 
         {
-          :accept => 'application/hal+json',
-          :user_agent => 'Haipa'
+          accept: 'application/hal+json',
+          user_agent: 'Haipa'
         }
       }
     end
