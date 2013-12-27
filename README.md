@@ -79,9 +79,7 @@ Then Haipa can consume this API with
     embedded.things.first # the first embedded thing Haipa::Resource
     embedded.things.first.fetch('name') # the first embedded thing Haipa::Resource name
     embedded.things[1] # the second embedded thing Haipa::Resource
-    embedded.things.first.clear.other_attribute
-
-
+    embedded.things.first.duplicate.other_attribute
 
 ## Contributing
 

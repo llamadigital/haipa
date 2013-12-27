@@ -2,13 +2,13 @@ module Haipa
   class Embedded
     extend Forwardable
 
-    attr_reader :data, :resource
+    attr_reader :data, :api
     alias :to_hash :data
     def_delegators :@data, :empty?, :has_key?
 
-    def initialize(resource, data)
+    def initialize(api, data)
       @data = data
-      @resource = resource
+      @api = api
     end
 
     def method_missing(name, *args, &block)
@@ -32,7 +32,7 @@ module Haipa
 
     def from_hash(hash)
       uri = hash.fetch('_links',{}).fetch('self',{}).fetch('href',nil)
-      Resource.new(resource.api, uri, hash)
+      Resource.new(api, uri, hash)
     end
   end
 end

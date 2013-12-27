@@ -21,17 +21,17 @@ module Haipa
 
     def defaults
       {
-        headers: 
+        headers:
         {
           accept: 'application/hal+json',
-          user_agent: 'Haipa'
+          user_agent: 'Haipa',
+          content_type: 'application/json',
         }
       }
     end
 
-    def clear
-      @resource.clear
-      self
+    def duplicate
+      @resource = @resource.duplicate
     end
 
     def description

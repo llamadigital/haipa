@@ -2,13 +2,13 @@ module Haipa
   class Links
     extend Forwardable
 
-    attr_reader :data, :resource
+    attr_reader :data, :api
     alias :to_hash :data
     def_delegators :@data, :empty?, :has_key?
 
-    def initialize(resource, data)
+    def initialize(api, data)
       @data = data
-      @resource = resource
+      @api = api
     end
 
     def method_missing(name, *args, &block)
@@ -20,7 +20,7 @@ module Haipa
           options = args.last.is_a?(::Hash) ? args.pop : {}
           href = template.expand(options).to_s
         end
-        Resource.new(resource.api, href)
+        Resource.new(api, href)
       else
         super
       end
