@@ -21,8 +21,8 @@ module Haipa
       return {} unless uri
       response = api.get do |conn|
         conn.url uri
-        conn.open_timeout 5
-        conn.timeout 60
+        conn.options.open_timeout 5
+        conn.options.timeout 60
       end
       assert_body!(response)
       raise FailureResponseError unless response.success?
