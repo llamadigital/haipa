@@ -19,7 +19,11 @@ module Haipa
     def get
       return @data if @data
       return {} unless uri
-      response = api.get(uri)
+      response = api.get do |conn|
+        conn.url uri
+        conn.open_timeout 5
+        conn.timeout 60
+      end
       assert_body!(response)
       raise FailureResponseError unless response.success?
       @data = parse(response)
